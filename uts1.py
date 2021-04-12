@@ -16,15 +16,25 @@ def plotRawdata():
         plt.plot(dataGyro.iloc[:,i], label=l[i-1])
         plt.xlabel(l[i-1])
         plt.legend(loc='upper left');
-        print(i)
     plt.show();
 
 fs = 100; # nilai frequents
 nyq = 0.5 * fs # nilai nyqusit
-wn = 1/nyq; 
+wn = 2/nyq; 
 
 def lowpass(col): # lowpass filter untuk data acelometer
     b, a = butter(2, wn, btype='low');
     return filtfilt(b, a, dataAcel.iloc[:,col]);
 
-plotRawdata();
+def highpass(col):
+    b,a = butter(2, wn, btype='high'); # highpass filter untuk data gyroscop
+    return lfilter(b, a, dataGyro.iloc[:,col]);
+
+
+# plotRawdata();
+
+plt.plot(lowpass(1), label='Acelerometer')
+plt.plot(highpass(1), label='Gyroscope')
+
+plt.legend();
+plt.show();
