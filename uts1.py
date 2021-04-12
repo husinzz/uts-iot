@@ -28,13 +28,14 @@ def lowpass(col): # lowpass filter untuk data acelometer
 
 def highpass(col):
     b,a = butter(2, wn, btype='high'); # highpass filter untuk data gyroscop
-    return lfilter(b, a, dataGyro.iloc[:,col]);
+    return filtfilt(b, a, dataGyro.iloc[:,col]);
 
 
 # plotRawdata();
 
 plt.plot(lowpass(1), label='Acelerometer')
 plt.plot(highpass(1), label='Gyroscope')
+
 
 plt.legend();
 plt.show();

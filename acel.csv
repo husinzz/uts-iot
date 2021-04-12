@@ -1,4 +1,4 @@
-Time (s),Linear Acceleration x (m/s^2),Linear Acceleration y (m/s^2),Linear Acceleration z (m/s^2),
+Time (s),Linear Acceleration x (m/s^2),Linear Acceleration y (m/s^2),Linear Acceleration z (m/s^2),tang
 4.30E-02,-3.70E-01,-1.57E-02,-2.48E-01,-3.61E+00
 6.17E-02,-3.61E-01,-2.18E-02,-2.16E-01,-3.28E+00
 7.18E-02,-3.59E-01,-2.51E-02,-2.07E-01,-3.19E+00
@@ -6265,4 +6265,3 @@ Time (s),Linear Acceleration x (m/s^2),Linear Acceleration y (m/s^2),Linear Acce
 6.61E+01,6.90E-02,-5.48E-03,-5.18E-02,-2.15E+01
 6.61E+01,6.04E-02,-2.31E-03,-6.05E-02,-3.31E+01
 6.61E+01,5.69E-02,-6.99E-03,-6.41E-02,-3.84E+01
-,,,,
