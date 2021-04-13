@@ -1,9 +1,17 @@
-import pandas as pd
-import matplotlib.pylab as plt
-from scipy.signal import butter, lfilter, filtfilt
+import pandas as pd;
+import matplotlib.pyplot as plt;
+import math;
+from scipy.signal import butter, filtfilt;
+import scipy.integrate as integral
+import numpy as np
 
 dataGyro = pd.DataFrame(pd.read_csv('gyro.csv').rolling(window=1).mean())
 dataAcel = pd.DataFrame(pd.read_csv('acel.csv').rolling(window=1).mean())
+dataAceltang = pd.DataFrame(pd.read_csv('acelwithtang.csv').rolling(window=1).mean())
+
+fs = 100; # nilai frequents
+nyq = 0.5 * fs # nilai nyqusit
+wn = 2/nyq; 
 
 def plotRawdata():
     l = ['x','y','z']
@@ -18,10 +26,6 @@ def plotRawdata():
         plt.legend(loc='upper left');
     plt.show();
 
-fs = 100; # nilai frequents
-nyq = 0.5 * fs # nilai nyqusit
-wn = 2/nyq; 
-
 def lowpass(col): # lowpass filter untuk data acelometer
     b, a = butter(2, wn, btype='low');
     return filtfilt(b, a, dataAcel.iloc[:,col]);
@@ -30,12 +34,30 @@ def highpass(col):
     b,a = butter(2, wn, btype='high'); # highpass filter untuk data gyroscop
     return filtfilt(b, a, dataGyro.iloc[:,col]);
 
+def findAtan():
+    atan = []
+    for i in range(len(dataAcel)):
+        atan.append(math.atan2(dataAceltang.iloc[i]['Linear Acceleration z (m/s^2)'], dataAceltang.iloc[i]['Linear Acceleration y (m/s^2)']))
+    return atan
 
-# plotRawdata();
+def integralYaw():
+    gral = []
+    for i in range(len(dataGyro)):
+        gral.append(lambda x : )
+    return gral
 
-plt.plot(lowpass(1), label='Acelerometer')
-plt.plot(highpass(1), label='Gyroscope')
+def gait():
+    gait = []
+    gral = integralYaw()
+    atan = findAtan();
+    for i in range(len(gral)):
+        gait.append(((gral[i])*0.8) + ((atan[i])*0.2))
+    return gait
+
+# plotRawdata(); # Bagian 2 
+# plt.plot(findAtan(), label='Rho'); # Bagian rumurs archtan
+# plt.plot(dataGyro.iloc[:,3], label='Gyro z') # buat di banding sama archtan
 
 
-plt.legend();
+plt.legend(loc='upper right');
 plt.show();
