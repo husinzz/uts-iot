@@ -46,7 +46,7 @@ def integrals():
         gral.append(ans)
     return gral
 
-def buatgait():
+def buatgait(): # Salah lol
     gait = []
     gral = integrals()
     cel = findAtan()
@@ -55,4 +55,18 @@ def buatgait():
         gait.append(val)
     return  gait
 
+def cfin():
+    angle = []
+    gral = integrals() # gyro angle
+    for i in range(len(dataGyro)):
+        if i == 0:
+            angle.append((0.98*(0 + gral[i])) + (0.02 * (dataAcel.iloc[i]['Linear Acceleration y (m/s^2)'])))
+        else: 
+            angle.append((0.98*(gral[i-1] + gral[i])) + (0.02 * (dataAcel.iloc[i]['Linear Acceleration y (m/s^2)'])))
+    return angle # hasilnya gait angle
 # END SOAL 4
+
+plt.plot(cfin(), label="CF")
+
+plt.legend()
+plt.show();
